@@ -327,7 +327,7 @@ export default function Home() {
   ]
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white overflow-hidden">
+    <main className="min-h-screen text-white overflow-hidden relative" style={{ zIndex: 1 }}>
       {/* Simplified Cursor - No trail for performance */}
       <div className="fixed inset-0 pointer-events-none z-[100]">
         <div
@@ -457,7 +457,7 @@ export default function Home() {
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 blur-xl opacity-30" />
                 <motion.div 
-                  className="relative bg-black border-2 border-white p-8"
+                  className="relative bg-black/80 backdrop-blur-sm border-2 border-white p-8"
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className="text-6xl font-mono font-black text-center mb-4">
@@ -597,7 +597,7 @@ export default function Home() {
                 }}
               >
                 <div className={`relative overflow-hidden bg-gradient-to-br ${project.color} p-[1px]`}>
-                  <div className="bg-black p-8 hover:bg-gray-950 transition-colors relative">
+                  <div className="bg-black/70 backdrop-blur-sm p-8 hover:bg-black/80 transition-colors relative">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <div className="text-sm text-gray-400 mb-2">{project.category}</div>
