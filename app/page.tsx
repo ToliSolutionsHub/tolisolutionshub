@@ -39,7 +39,7 @@ import {
   SiGithub,
   SiLinkedin
 } from 'react-icons/si'
-import { HiOutlineMail } from 'react-icons/hi'
+import { HiOutlineMail, HiCode } from 'react-icons/hi'
 import { BsArrowUpRight, BsX } from 'react-icons/bs'
 import Image from 'next/image'
 
@@ -363,12 +363,15 @@ export default function Home() {
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
           >
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-              <span className="text-black font-black text-xl">A.B</span>
+            <div className="relative">
+              <div className="w-14 h-14 bg-black border-2 border-gray-800 rounded-xl flex items-center justify-center hover:border-blue-500 transition-all group">
+                <HiCode className="text-3xl text-blue-500 group-hover:scale-110 transition-transform" />
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
             </div>
             <div className="text-white">
-              <div className="text-xs opacity-60">Anatoli Bigdas</div>
-              <div className="text-sm font-mono">{currentTime.toLocaleTimeString()}</div>
+              <div className="text-lg font-bold">Anatoli Bigdas</div>
+              <div className="text-xs font-mono text-gray-400">Senior Full Stack Developer</div>
             </div>
           </motion.div>
           

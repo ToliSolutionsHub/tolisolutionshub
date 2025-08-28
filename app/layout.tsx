@@ -15,8 +15,21 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Toli Solutions Hub',
-  description: 'Professional portfolio showcasing full stack development expertise',
+  title: 'Anatoli Bigdas - Full Stack Developer',
+  description: 'Senior Full Stack Developer with 8+ years of experience in React, Node.js, TypeScript, and modern web technologies',
+  keywords: ['Full Stack Developer', 'React', 'Node.js', 'TypeScript', 'Web3', 'Blockchain', 'AI/ML'],
+  authors: [{ name: 'Anatoli Bigdas' }],
+  creator: 'Anatoli Bigdas',
+  icons: {
+    icon: 'https://api.iconify.design/mdi:code-braces.svg?color=%236366f1',
+    shortcut: 'https://api.iconify.design/mdi:code-braces.svg?color=%236366f1',
+    apple: 'https://api.iconify.design/mdi:code-braces.svg?color=%236366f1&width=180&height=180',
+  },
+  openGraph: {
+    title: 'Anatoli Bigdas - Full Stack Developer',
+    description: 'Senior Full Stack Developer with 8+ years of experience',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
