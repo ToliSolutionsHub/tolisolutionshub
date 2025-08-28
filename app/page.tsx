@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -51,6 +52,14 @@ export default function Home() {
   const [isHovering, setIsHovering] = useState(false)
   const [selectedProject, setSelectedProject] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const formRef = useRef<HTMLFormElement>(null)
   const { scrollYProgress } = useScroll()
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -300])
 
@@ -77,6 +86,40 @@ export default function Home() {
       window.removeEventListener('mousemove', handleMouseMove)
     }
   }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      // Initialize EmailJS (only needed once, but safe to call multiple times)
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '')
+
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: 'Anatoli Bigdas',
+        }
+      )
+
+      if (result.status === 200) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      }
+    } catch (error) {
+      console.error('EmailJS error:', error)
+      setSubmitStatus('error')
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   if (!mounted) return null
 
@@ -745,29 +788,53 @@ export default function Home() {
               className="relative"
             >
               <motion.div 
-                className="bg-white text-black p-8"
                 className="bg-white text-black p-8 -rotate-1"
                 whileHover={{ rotate: 0, scale: 1.01 }}
               >
                 <h3 className="text-2xl font-bold mb-6">Quick Message</h3>
-                <div className="space-y-4">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                   <Input 
                     placeholder="Your Name" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                    disabled={isSubmitting}
                     className="bg-gray-100 border-0 text-black placeholder:text-gray-500 rounded-none"
                   />
                   <Input 
                     type="email" 
                     placeholder="Your Email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    disabled={isSubmitting}
                     className="bg-gray-100 border-0 text-black placeholder:text-gray-500 rounded-none"
                   />
                   <Textarea 
                     placeholder="Your Message" 
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    disabled={isSubmitting}
                     className="min-h-[150px] bg-gray-100 border-0 text-black placeholder:text-gray-500 rounded-none resize-none"
                   />
-                  <Button className="w-full bg-black text-white hover:bg-gray-900 rounded-none py-4 font-bold">
-                    SEND MESSAGE →
+                  <Button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-black text-white hover:bg-gray-900 rounded-none py-4 font-bold disabled:opacity-50"
+                  >
+                    {isSubmitting ? 'SENDING...' : 
+                     submitStatus === 'success' ? 'MESSAGE SENT ✓' :
+                     submitStatus === 'error' ? 'FAILED - TRY AGAIN' :
+                     'SEND MESSAGE →'}
                   </Button>
-                </div>
+                  {submitStatus === 'success' && (
+                    <p className="text-green-600 text-sm text-center">Thank you! I'll get back to you soon.</p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <p className="text-red-600 text-sm text-center">Something went wrong. Please try again.</p>
+                  )}
+                </form>
               </motion.div>
               <div className="absolute -bottom-4 -right-4 w-full h-full bg-gradient-to-r from-blue-500 to-purple-500 -z-10" />
             </motion.div>
