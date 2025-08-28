@@ -463,7 +463,7 @@ export default function Home() {
                 </span>
                 <span className="block text-transparent relative" style={{
                   WebkitTextStroke: '2px white',
-                  textStroke: '2px white'
+                  stroke: '2px white'
                 }}>
                   DIGITAL
                 </span>
@@ -561,7 +561,7 @@ export default function Home() {
             <h2 className="text-6xl font-black mb-4">
               <span className="text-transparent" style={{
                 WebkitTextStroke: '1px white',
-                textStroke: '1px white'
+                stroke: '1px white'
               }}>CORE</span>{' '}
               <span>EXPERTISE</span>
             </h2>
@@ -747,7 +747,7 @@ export default function Home() {
                 LET&apos;S<br />
                 <span className="text-transparent" style={{
                   WebkitTextStroke: '2px white',
-                  textStroke: '2px white'
+                  stroke: '2px white'
                 }}>CREATE</span><br />
                 TOGETHER
               </h2>
