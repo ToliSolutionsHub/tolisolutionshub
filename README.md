@@ -161,16 +161,6 @@ Senior Full Stack Developer with **8+ years of experience** architecting and del
 ### AI & Machine Learning
 `OpenAI API` `TensorFlow` `PyTorch` `Scikit-learn` `NLP` `Computer Vision` `LangChain`
 
-## 📈 GitHub Statistics
-
-<div align="center">
-  
-  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=tolisolutionshub&show_icons=true&theme=dark&hide_border=true)
-  
-  ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=tolisolutionshub&layout=compact&theme=dark&hide_border=true)
-  
-</div>
-
 ## 🎯 What I Bring to Your Team
 
 - **🏗️ Architecture Excellence** - Designing scalable, maintainable systems that grow with your business
